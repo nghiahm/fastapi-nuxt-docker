@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: fastapi
+    build: ./app
+    volumes:
+      - ./app:/usr/src/app   
+    ports:
+      - 8000:8000
+    networks:
+      - main
+
+  web:
+    container_name: nuxt
+    build: ./web
+    depends_on:
+      - app
+    volumes:
+      - ./web/:/usr/src/web
+      - /usr/src/web/node_modules
+    ports:
+      - 3000:3000
+    networks:
+      - main
+
+networks:
+  main:
+    driver: bridge
+
+
+# volumes: {}
