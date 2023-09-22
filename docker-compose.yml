@@ -24,6 +24,18 @@ services:
     networks:
       - main
 
+  nginx:
+    container_name: nginx 
+    build: ./nginx
+    depends_on:
+      - app
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    networks:
+      - main
+
 networks:
   main:
     driver: bridge
